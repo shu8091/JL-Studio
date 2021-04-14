@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Switch, Route } from "react-router";
+
+import Header from "./components/header/header.component";
+import HomePage from "./pages/homepage/homepage.component";
+import WorkPage from "./pages/works/works.component";
+import BlogPage from "./pages/blog/blog.component";
+import Footer from "./components/footer/footer.component";
+import GenericNotFound from "./components/404/generic-not-found.component";
+import "./App.scss";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Switch>
+        {/* "Switch" It does not render anything else but that route */}
+        <Route exact path="/" component={HomePage} />
+        <Route path="/works" component={WorkPage} />
+        <Route path="/blog" component={BlogPage} />
+        <Route component={GenericNotFound} />
+      </Switch>
+      {console.log(
+        "I hope there's nothing under the hood, anyway nice to meet ya here! :D"
+      )}
+      <Footer />
     </div>
   );
 }
