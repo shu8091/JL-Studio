@@ -2,7 +2,8 @@ import React from 'react';
 
 import Main from '../../components/main-container/main-container.component';
 import PostCard from '../../components/post-card/post-card.component';
-import Card from '../../components/card/card.component';
+import PostOverview from '../../components/post-overview/post-overview.component';
+// import Card from '../../components/card/card.component';
 
 import { Banner, Content } from './blog.styles';
 
@@ -13,7 +14,7 @@ const BlogPage = () => {
         <PostCard />
       </Banner>
       <Content>
-        <Card />
+        <PostOverview />
       </Content>
     </Main>
   )

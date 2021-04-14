@@ -1,15 +1,8 @@
 import styled from "styled-components/macro";
 
-export const Container = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-content: space-between;
-  flex-wrap: wrap;
-`;
-
 export const Content = styled.div`
-  border: 1px solid #999;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
   width: 370px;
   height: 450px;
   background-color: #fff;

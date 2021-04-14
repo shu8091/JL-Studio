@@ -1,32 +1,17 @@
 import React from 'react';
 
 import { Container, Left, Right } from './post-card.styles';
-
-const posts = [
-  {
-    id: 1,
-    imageUrl: "https://picsum.photos/900/400?image=1000",
-    title: 'Lorem1',
-    category: 'CODING',
-    subject: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci',
-    content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci',
-    date: '2020/01/01'
-  },
-  {
-    id: 2,
-    imageUrl: "https://picsum.photos/600/400?image=1050",
-    title: 'Lorem2',
-    category: 'TRAVEL',
-    subject: 'Contrary to popular belief, Lorem Ipsum is not simply random text',
-    content: 'Contrary to popular belief, Lorem Ipsum is not simply random text',
-    date: '2020/01/02'
-  }
-
-]
-
 class PostCard extends React.Component {
   state = {
-    posts
+    posts: []
+  }
+
+  componentDidMount() {
+    fetch('http://localhost/react/jl-studio/src/api/get_posts.php', {
+      method: 'GET'
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ posts: data }, () => console.log(this.state.posts)))
   }
 
   render() {
@@ -34,21 +19,38 @@ class PostCard extends React.Component {
     return (
       <div>
         {
-          posts
-            .map(({ id, imageUrl, title, category, subject, date }) => (
-              <Container key={id}>
+          posts.reduce((max, post) => (max.post_id < post.post_id)
+            ?
+            (
+              <Container key={max.post_id}>
                 <Left>
                   <span></span>
-                  <img src={imageUrl} alt='images' />
+                  <img src={max.imageUrl} alt='images' />
                 </Left>
                 <Right>
-                  <span>{category}</span>
-                  <h2>{title}</h2>
-                  <h5>{subject}</h5>
-                  <span>{date}</span>
+                  <span>{max.category}</span>
+                  <h2>{max.title}</h2>
+                  <h5>{max.subject}</h5>
+                  <span>{max.date}</span>
                 </Right>
               </Container >
-            ))
+            )
+            :
+            (
+              <Container key={post.post_id}>
+                <Left>
+                  <span></span>
+                  <img src={post.imageUrl} alt='images' />
+                </Left>
+                <Right>
+                  <span>{post.category}</span>
+                  <h2>{post.title}</h2>
+                  <h5>{post.subject}</h5>
+                  <span>{post.date}</span>
+                </Right>
+              </Container >
+            ), 0
+          )
         }
       </div>
     )
